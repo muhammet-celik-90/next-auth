@@ -1,95 +1,88 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import Link from "next/link";
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Home() {
+  const data = useSession();
+  const status = data.status;
+  const { data: session } = useSession();
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100vh",
+        flexDirection: "column",
+      }}
+    >
+      {status === "unauthenticated" && (
+        <Box>
+          <h1>Next Auth Example Home Page</h1>
+          <Box m={3}>
+            <Link href="/api/auth/signin" style={{color:"white"}}>
+              Got to <strong>Sign In</strong> Page
+            </Link>
+          </Box>
+        </Box>
+      )}
+      {status === "authenticated" && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alingItems: "center",
+            padding: "10px",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alingItems: "center",
+              flexDirection: "column",
+            }}
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+            <Card>
+              <CardContent
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: 5,
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  textAlign="center"
+                  mt={1}
+                  mb={2}
+                  color="primary"
+                >
+                  Welcome
+                </Typography>
+                <Typography variant="h5" textAlign="center">
+                  {session.user.name}
+                </Typography>
+                <Typography variant="p" color="grey" textAlign="center">
+                  {session.user.email}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={() => signOut()}
+                  sx={{ marginTop: 2 }}
+                  color="error"
+                >
+                  Sign Out
+                </Button>
+              </CardContent>
+            </Card>
+          </Box>
+        </Box>
+      )}
+    </Box>
+  );
 }
