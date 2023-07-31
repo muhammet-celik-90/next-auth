@@ -4,6 +4,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 #Sign In Page
 ![image](https://github.com/muhammet-celik-90/next-auth/assets/111661381/bce642a8-930c-4adf-802b-5ca1fc7990bb)
 
+#If invalid user
+![image](https://github.com/muhammet-celik-90/next-auth/assets/111661381/e771c057-87af-4d99-aeff-c6c89a64aff5)
+
+#Light Mode
+![image](https://github.com/muhammet-celik-90/next-auth/assets/111661381/43eca550-11be-4623-86d6-549b8043cfa8)
+
+#Home Page (if sign in correctly)
+![image](https://github.com/muhammet-celik-90/next-auth/assets/111661381/9fe91cc1-b8da-4edf-a0e5-da4cfd5874d4)
+
+
+
+
 
 
 ## Getting Started
